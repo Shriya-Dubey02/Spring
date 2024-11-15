@@ -3,6 +3,9 @@ package com.example.demo.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,6 +49,16 @@ public class FirstController{
 		return students;
 	}
 	
+	@GetMapping("/get-all-students")
+	public ResponseEntity<List<Student>> getAllStudents()
+	{
+		ArrayList<Student> students= new ArrayList<Student>();
+		students.add(new Student(101, "Nisha", 80));
+		students.add(new Student(102, "Shriya", 70));
+
+		return new ResponseEntity<List<Student>>(students,HttpStatus.FOUND);
+	}
+	
 	
 	// students/anyNumber
 	@GetMapping("/students/{id}")
@@ -63,6 +76,19 @@ public class FirstController{
 		return student;
 		
 	}
+	
+	
+	// Status codes
+	// in the postman
+	// ResponseEntity<Student>  httpsStatus.created    enum is used to assign variables to numbers
+	
+	@PostMapping("/add-student")
+	public ResponseEntity<Student> addstudentwithresponseEntity(@RequestBody Student student)
+	{
+		return new ResponseEntity<Student>(student,HttpStatus.UNAUTHORIZED);
+	}
+
+	
 	
 	
 }
